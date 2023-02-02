@@ -9,6 +9,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+use App\Models\IndicadorFinancieroModel;
 /**
  * Class BaseController
  *
@@ -52,7 +53,69 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+                
+        ini_set('display_errors', 1);
+        $db = db_connect(); 
+        if($db->tableExists('indicadorfinancieros')){           }
+        else{   
+            echo 'tabla no existe!.. creando';         
+            $db->query('CREATE TABLE IndicadorFinancieros (
+                id NUMERIC PRIMARY KEY,
+                nombreIndicador VARCHAR NOT NULL CHECK (char_length(nombreIndicador) >= 1),
+                codigoIndicador VARCHAR NOT NULL CHECK (char_length(codigoIndicador) >= 1),
+                unidadmedidaindicador VARCHAR NOT NULL CHECK (char_length(unidadmedidaindicador) >= 1),
+                valorIndicador DOUBLE PRECISION NOT NULL CHECK (valorIndicador >= 0),
+                fechaIndicador VARCHAR NOT NULL CHECK (char_length(fechaIndicador) >= 1),
+                created_at TIMESTAMP  ,
+                updated_at TIMESTAMP       
+            );');
+        };        
+        $query = $db->query('SELECT * FROM indicadorfinancieros');
+        if ($query->getNumRows()==0) {            
+        
+        //Obtener un token JWT mediante POST para acceder a los indicadores
+        $client = \Config\Services::curlrequest();
+        $body =array('userName'=> 'josmqc4qzrd_xra@indeedemail.com','flagJson'=> true);
+        $response = $client->post('https://postulaciones.solutoria.cl/api/acceso',['json' => $body]);          
+        $token =$response->getBody();
+        $jwt = json_decode($token)->token;
+        //Obtener todos los indicadores financieros mediante un POST con el Token anterior en el cuerpo de la solicitud        
+        
+        $response = $client->request('get','https://postulaciones.solutoria.cl/api/indicadores',[
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$jwt              
+            ]
+        ]);      
+        $data = $response->getBody();   
+        
+        //Transformar la resuesta JSON a un array 
+        //recorrer el arreglo y guardar los indicadores de UF solamente
+        
+        $decoded = json_decode($data,true);
+        $indicadorFinancieroModel = new IndicadorFinancieroModel($db);
 
-        // E.g.: $this->session = \Config\Services::session();
+        foreach($decoded as $item){      
+            if(strcmp($item['codigoIndicador'],'UF')==0){              
+               
+                $data = [                    
+                    'id'=>$item['id'],
+                    'nombreindicador'  => $item['nombreIndicador'],
+                    'codigoindicador'  => $item['codigoIndicador'],
+                    'unidadmedidaindicador'  => 'Pesos',
+                    'valorindicador'  => $item['valorIndicador'],
+                    'fechaindicador'  => $item['fechaIndicador'],
+                ];
+                
+               $indicadorFinancieroModel->insert($data);
+            }     
+                   
+        }
+
+        
+        
+        
+        
+        }       
     }
 }
