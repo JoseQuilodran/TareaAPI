@@ -75,7 +75,7 @@ abstract class BaseController extends Controller
         
         //Obtener un token JWT mediante POST para acceder a los indicadores
         $client = \Config\Services::curlrequest();
-        $body =array('userName'=> 'josmqc4qzrd_xra@indeedemail.com','flagJson'=> true);
+        $body =array('userName'=>getenv('API_USERNAME') ,'flagJson'=> true);
         $response = $client->post('https://postulaciones.solutoria.cl/api/acceso',['json' => $body]);          
         $token =$response->getBody();
         $jwt = json_decode($token)->token;

@@ -9,7 +9,7 @@
 # to override the setting, you must un-comment it by removing the '#'
 # at the beginning of the line.
 #--------------------------------------------------------------------
-API_USERNAME = 'josmqc4qzrd_xra@indeedemail.com'
+API_USERNAME = ''
 #--------------------------------------------------------------------
 # ENVIRONMENT
 #--------------------------------------------------------------------
@@ -31,13 +31,13 @@ app.baseURL = 'http://localhost:8080/'
 # DATABASE
 #--------------------------------------------------------------------
 
- database.default.hostname = 'localhost'
- database.default.database = 'TestAPIDB'
+ database.default.hostname = ''
+ database.default.database = ''
  database.default.username = 'postgres'
- database.default.password = 'X283FZ8Jga'
+ database.default.password = ''
  database.default.DBDriver = 'Postgre'
  database.default.DBPrefix =
- database.default.port = '5432'
+ database.default.port = ''
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4_test
