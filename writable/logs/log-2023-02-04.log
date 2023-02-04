@@ -1,0 +1,111 @@
+CRITICAL - 2023-02-04 00:03:50 --> Undefined variable $dataPoints
+in APPPATH\Views\indicadorFinancieroView.php on line 48.
+ 1 APPPATH\Views\indicadorFinancieroView.php(48): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $dataPoints', 'APPPATH\\Views\\indicadorFinancieroView.php', 48)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\indicadorFinancieroView.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1177): CodeIgniter\View\View->render('indicadorFinancieroView', [], true)
+ 5 APPPATH\Controllers\IndicadorFinancieroController.php(14): view('indicadorFinancieroView')
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 00:04:16 --> Undefined variable $indicadores_uf
+in APPPATH\Views\indicadorFinancieroView.php on line 5.
+ 1 APPPATH\Views\indicadorFinancieroView.php(5): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $indicadores_uf', 'APPPATH\\Views\\indicadorFinancieroView.php', 5)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\indicadorFinancieroView.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1177): CodeIgniter\View\View->render('indicadorFinancieroView', [], true)
+ 5 APPPATH\Controllers\IndicadorFinancieroController.php(14): view('indicadorFinancieroView')
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 00:04:23 --> Undefined variable $modelo
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 19.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(19): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $modelo', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 19)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->getAll()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 00:04:31 --> Undefined variable $modelo
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 19.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(19): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $modelo', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 19)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->getAll()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 00:05:02 --> syntax error, unexpected token "="
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 19.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(289): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Controllers\\IndicadorFinancieroController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(267): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\IndicadorFinancieroController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\IndicadorFinancieroController')
+ 4 SYSTEMPATH\CodeIgniter.php(892): class_exists('\\App\\Controllers\\IndicadorFinancieroController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(486): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 02:29:16 --> Undefined property: App\Controllers\IndicadorFinancieroController::$db
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 71.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(71): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\IndicadorFinancieroController::$db', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 71)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->update()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 02:34:03 --> Undefined variable $db
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 71.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(71): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $db', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 71)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->update()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 02:41:45 --> Undefined array key "fechaindicador"
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 65.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(65): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "fechaindicador"', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 65)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->update()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 02:52:26 --> Updates are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Model.php on line 390.
+ 1 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate(null, [...])
+ 2 SYSTEMPATH\Model.php(755): CodeIgniter\BaseModel->update(null, [...])
+ 3 APPPATH\Controllers\IndicadorFinancieroController.php(64): CodeIgniter\Model->update(null, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->update()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 03:16:49 --> Deletes are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Database\BaseBuilder.php on line 2753.
+ 1 SYSTEMPATH\Database\Postgre\Builder.php(236): CodeIgniter\Database\BaseBuilder->delete('ROOTPATH\\public', null, true)
+ 2 SYSTEMPATH\Model.php(455): CodeIgniter\Database\Postgre\Builder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1065): CodeIgniter\Model->doDelete(null, false)
+ 4 APPPATH\Controllers\IndicadorFinancieroController.php(78): CodeIgniter\BaseModel->delete(null)
+ 5 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->delete()
+ 6 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 7 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 03:18:22 --> Undefined variable $update
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 80.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(80): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $update', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 80)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->delete()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-04 03:18:29 --> Undefined variable $update
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 80.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(80): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $update', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 80)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->delete()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')

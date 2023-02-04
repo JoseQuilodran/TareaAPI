@@ -30,6 +30,11 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'IndicadorFinancieroController::index');
+$routes->post('/create', 'IndicadorFinancieroController::create');
+$routes->get('/get', 'IndicadorFinancieroController::getAll');
+$routes->post('/update', 'IndicadorFinancieroController::update');
+$routes->post('/delete', 'IndicadorFinancieroController::delete');
+
 
 /*
  * --------------------------------------------------------------------

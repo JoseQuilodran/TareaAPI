@@ -58,14 +58,14 @@ abstract class BaseController extends Controller
         $db = db_connect(); 
         if($db->tableExists('indicadorfinancieros')){           }
         else{   
-            echo 'tabla no existe!.. creando';         
+             
             $db->query('CREATE TABLE IndicadorFinancieros (
                 id NUMERIC PRIMARY KEY,
                 nombreIndicador VARCHAR NOT NULL CHECK (char_length(nombreIndicador) >= 1),
                 codigoIndicador VARCHAR NOT NULL CHECK (char_length(codigoIndicador) >= 1),
                 unidadmedidaindicador VARCHAR NOT NULL CHECK (char_length(unidadmedidaindicador) >= 1),
                 valorIndicador DOUBLE PRECISION NOT NULL CHECK (valorIndicador >= 0),
-                fechaIndicador VARCHAR NOT NULL CHECK (char_length(fechaIndicador) >= 1),
+                fechaIndicador VARCHAR NOT NULL UNIQUE CHECK (char_length(fechaIndicador) >= 1),
                 created_at TIMESTAMP  ,
                 updated_at TIMESTAMP       
             );');

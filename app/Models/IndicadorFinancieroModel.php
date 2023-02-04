@@ -13,7 +13,7 @@ class IndicadorFinancieroModel extends Model{
         'codigoindicador'=>'required|min_length[1]',
         'unidadmedidaindicador'=>'required|min_length[1]',
         'valorindicador'=>'required|numeric|min_length[1]',
-        'fechaindicador'=>'required|min_length[1]',
+        'fechaindicador'=>'required|min_length[1]|is_unique[indicadorfinancieros.fechaindicador,indicadorfinancieros.id,{id}]',
     ];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';

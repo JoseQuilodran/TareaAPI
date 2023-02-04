@@ -1,94 +1,178 @@
-<?php
- 
-$dataPoints = array();
+<?php 
+    //Transformacion datos indicador a puntos grafico con fechaindicador como js timestamp
+    $dataPoints = array();
 
-foreach ($indicadores_uf as $row) {
-	
-	array_push($dataPoints, array("x" => strtotime($row['fechaindicador'])*1000, "y" => $row['valorindicador']));
-}
-
+    foreach ($indicadores_uf as $row) {
+        
+        array_push($dataPoints, array("x" => strtotime($row['fechaindicador'])*1000, "y" => $row['valorindicador']));
+    }
 ?>
-
+<!-- Inicio script de Grafico -->
 <script>
-window.onload = function () {
-CanvasJS.addCultureInfo("es", 
-{                     
-    shortMonths: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Agto", "Sept", "Oct", "Nov", "Dic"]
-    
-});
+    window.onload = function () {    
+    CanvasJS.addCultureInfo("es", 
+    {                     
+        shortMonths: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Agto", "Sept", "Oct", "Nov", "Dic"]
+        
+    });
  
-var chart = new CanvasJS.Chart("chartContainer", {
-    culture:  "es",
-	animationEnabled: true,
-	//theme: "light2",
-	title:{
-		text: "Precio de la Unidad De Fomento (UF)"
-	},
-	axisX:{
-        title: "Fecha",
-        valueFormatString: "DD MMM YYYY",
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true
-		}
-	},
-	axisY:{
-		title: "Pesos Chilenos (CLP)",
-		includeZero: true,
-		crosshair: {
-			enabled: true,
-			snapToDataPoint: true
-		}
-	},
-	toolTip:{
-		enabled: false
-	},
-	data: [{
-		type: "area",
-        xValueType: "dateTime",
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-	}]
-});
-chart.render();
- 
-}
+    var chart = new CanvasJS.Chart("chartContainer", {
+        culture:  "es",
+        animationEnabled: true,
+        //theme: "light2",
+        title:{
+            text: "Precio de la Unidad De Fomento (UF)"
+        },
+        axisX:{
+            title: "Fecha",
+            valueFormatString: "DD MMM YYYY",
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        axisY:{
+            title: "Pesos Chilenos (CLP)",
+            includeZero: true,
+            crosshair: {
+                enabled: true,
+                snapToDataPoint: true
+            }
+        },
+        toolTip:{
+            enabled: false
+        },
+        data: [{
+            type: "area",
+            xValueType: "dateTime",
+            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+    chart.render();    
+    }
 </script>
+<!-- Fin script de Grafico -->
 
+<!-- Inicio base html de vista -->
 <body>
     <div class="container">
-    <div class="row mt-5">
-        <div class="  col ">
+    <div class="row d-flex flex-wrap-reverse mt-5">
+        <div class="col-5 ">
+            <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">Nuevo valor UF</button>
             <table class="table table-dark table-striped" id="tablaIndicadores">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Fecha</th>
-                        <th>Valor</th>                    
+                        <th>Valor</th>  
+                        <th>Accion</th>                  
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                    foreach ($indicadores_uf as $row) {
-                ?>        
-                <tr id= "<?php echo $row['id']; ?>">
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['fechaindicador']; ?></td>
-                    <td><?php echo $row['valorindicador']; ?></td>
-                </tr>
-                <?php } ?>   
+                
                 
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-center col-8 ">
+        <div class="d-flex justify-content-center col-5 ">
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
         </div>
+    </div>       
     </div>
-        
-
+<!-- Fin base html de vista -->
+<!-- Inicio Modales -->     
+    <!-- Inicio Modal Create Indicador --> 
+    <div class="modal fade " id="addModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Registrar nuevo valor UF</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="addIndicador" name ="addIndicador" action="<?php echo site_url('/create'); ?>" method="post">
+            <div class="modal-body">
+                
+                <div class="mb-3 form-group">
+                    <label for="addDate" class="col-form-label">Fecha:</label>
+                    <input type="date" required class="form-control" id="addDate" name="addDate">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="addValue" class="col-form-label">Valor en CLP:</label>
+                    <input type="number" min="0" required class="form-control" id="addValue" name="addValue"></textarea>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar Registro</button>
+            </div>
+        </form>
+        </div>
     </div>
-    
-    
+    </div>
+    <!-- Inicio Modal Update Indicador --> 
+    <div class="modal fade " id="updateModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Modificar valor UF</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="updateIndicador" name ="updateIndicador" action="<?php echo site_url('/update'); ?>" method="post">
+            <div class="modal-body">                
+                <div class="mb-3 form-group">
+                    <label for="updateDate" class="col-form-label">Fecha(No se puede modificar):</label>
+                    <input type="date" readonly required class="form-control" id="updateDate" name="updateDate">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="updateValue" class="col-form-label">Valor en CLP:</label>
+                    <input type="number" min="0" required class="form-control" id="updateValue" name="updateValue"></textarea>
+                </div>
+                <div class="mb-3 form-group">                    
+                    <input type="hidden" required class="form-control" id="updateId" name="updateId"></textarea>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar Modificacion</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    <!-- Inicio Modal Delete Indicador --> 
+    <div class="modal fade " id="deleteModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar valor UF</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="deleteIndicador" name ="deleteIndicador"  action="<?php echo site_url('/delete'); ?>" method="post">
+            <div class="modal-body">                
+                <div class="mb-3 form-group">
+                    <label for="deleteDate" class="col-form-label">Fecha:</label>
+                    <input type="date" readonly required class="form-control" id="deleteDate" name="deleteDate">
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="deleteValue" class="col-form-label">Valor en CLP:</label>
+                    <input type="number" min="0" readonly required class="form-control" id="deleteValue" name="deleteeValue"></textarea>
+                </div>
+                <div class="mb-3 form-group">                    
+                    <input type="hidden" required class="form-control" id="deleteId" name="deleteId"></textarea>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-danger">Confirmar Eliminacion Registro</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+    <!-- Inicio script de datatable -->
     <script>$(document).ready( function () {
         $('#tablaIndicadores').DataTable({
             "language": {
@@ -103,7 +187,7 @@ chart.render();
                 "loadingRecords": "Cargando...",
                 "processing":     "",
                 "search":         "Busqueda rapida:",
-                "zeroRecords":    "NO se encontro el registro",
+                "zeroRecords":    "No se encontro registro",
                 "paginate": {
                     "first":      "Primero",
                     "last":       "Ultimo",
@@ -116,11 +200,133 @@ chart.render();
                 }
             },
             "pageLength": 31,
-            "lengthMenu": [ 10, 25,31, 50, 75, 100 ]
+            "lengthMenu": [ 10, 25,31, 50, 75, 100 ],
+            "columnDefs": [ {
+                "targets": -1,
+                "data":null,
+                "defaultContent": "<button type='button' class='btn btn-primary me-3 btnModificar' data-bs-toggle='modal' data-bs-target='#updateModal'>Modificar</button><button type='button' class='btn btn-danger btnEliminar' data-bs-toggle='modal' data-bs-target='#deleteModal'>Eliminar</button>",
+                } 
+            ],
+            "order": [[1, 'desc']],
+            "columns": [
+                { "data": "id" },
+                { "data": "fechaindicador" },
+                { "data": "valorindicador" },
+                { "data": null },
+                
+            ],
+            "ajax": {
+                "url": "/get",
+                "type": "GET"
+            }
+            
+            
         });
         
         } );
+        //script que inserta los datos de la fila del boton Modificar en el modal udpdateModal
+        $('#tablaIndicadores tbody').on('click', '.btnModificar', function () {
+            let rowData = $('#tablaIndicadores ').DataTable().row($(this).parents('tr')).data();            
+            $('#updateIndicador #updateDate').val(rowData['fechaindicador']);
+            $('#updateIndicador #updateValue').val(rowData['valorindicador']);
+            $('#updateIndicador #updateId').val(rowData['id']);            
+        });
+        //script que inserta los datos de la fila del boton Eliminar en el modal deleteModal
+        $('#tablaIndicadores tbody').on('click', '.btnEliminar', function () {
+            let rowData = $('#tablaIndicadores ').DataTable().row($(this).parents('tr')).data();            
+            $('#deleteIndicador #deleteDate').val(rowData['fechaindicador']);
+            $('#deleteIndicador #deleteValue').val(rowData['valorindicador']);
+            $('#deleteIndicador #deleteId').val(rowData['id']);            
+        });
     </script>
+    <!-- Fin script de datatable -->
+
+    <!-- Inicio scripts de validaciones y solicitudes AJAX -->
+    <!-- Inicio script de validacion y solicitud AJAX modal addModal -->
+    <script>
+        $(document).ready( function () {
+            toastr.options.positionClass = "toast-bottom-right";
+            toastr.options.closeButton = true;
+            $("#addIndicador").validate({                
+                messages:{
+
+                },
+                submitHandler: function (form) {
+                    var form_action = $("#addIndicador").attr("action");
+                    $.ajax({
+                        data: $('#addIndicador').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {                           
+                            $('#tablaIndicadores').DataTable().ajax.reload();
+                            $('#addModal').modal('hide');                            
+                            toastr.success('Indicador registrado correctamente');
+                        },
+                        error: function (data) {
+                            toastr.error('Ocurrio un problema,intente nuevamente');
+                        }
+                    });
+                }
+            });
+        });    
+    </script>
+    <!-- Inicio script de validacion y solicitud AJAX modal updateModal -->
+    <script>
+        $(document).ready( function () {
+            $("#updateIndicador").validate({                
+                messages:{
+
+                },
+                submitHandler: function (form) {
+                    var form_action = $("#updateIndicador").attr("action");
+                    $.ajax({
+                        data: $('#updateIndicador').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {                           
+                            $('#tablaIndicadores').DataTable().ajax.reload();
+                            $('#updateModal').modal('hide');
+                            toastr.success('Indicador modificado correctamente');
+                        },
+                        error: function (data) {
+                            toastr.error('Ocurrio un problema,intente nuevamente');
+                        }
+                    });
+                }
+            });
+        });    
+    </script>
+    <!-- Inicio script de validacion y solicitud AJAX modal deleteModal -->
+    <script>
+        $(document).ready( function () {
+            $("#deleteIndicador").validate({                
+                messages:{
+
+                },
+                submitHandler: function (form) {
+                    var form_action = $("#deleteIndicador").attr("action");
+                    $.ajax({
+                        data: $('#deleteIndicador').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {                           
+                            $('#tablaIndicadores').DataTable().ajax.reload();
+                            $('#deleteModal').modal('hide');
+                            
+                            toastr.success('Indicador eliminado correctamente');
+                        },
+                        error: function (data) {
+                            toastr.error('Ocurrio un problema,intente nuevamente');
+                        }
+                    });
+                }
+            });
+        });    
+    </script>
+    <!-- Fin scripts de validacion y solicitudes modal AJAX-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>

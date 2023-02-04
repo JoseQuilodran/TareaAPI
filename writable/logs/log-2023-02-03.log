@@ -1,0 +1,82 @@
+ERROR - 2023-02-03 20:51:34 --> ErrorException: pg_query(): Query failed: ERROR:  la sintaxis de entrada no es válida para tipo numeric: «$id»
+LINE 4: AND &quot;indicadorfinancieros&quot;.&quot;id&quot; != '$id'
+                                           ^ in E:\Codigo\TareaAPI\system\Database\Postgre\Connection.php:147
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'pg_query(): Que...', 'E:\\Codigo\\Tarea...', 147)
+#1 E:\Codigo\TareaAPI\system\Database\Postgre\Connection.php(147): pg_query(Object(PgSql\Connection), 'SELECT 1\nFROM "...')
+#2 E:\Codigo\TareaAPI\system\Database\BaseConnection.php(691): CodeIgniter\Database\Postgre\Connection->execute('SELECT 1\nFROM "...')
+#3 E:\Codigo\TareaAPI\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM "...')
+#4 E:\Codigo\TareaAPI\system\Database\BaseBuilder.php(1602): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM "...', Array, false)
+#5 E:\Codigo\TareaAPI\system\Validation\StrictRules\Rules.php(206): CodeIgniter\Database\BaseBuilder->get()
+#6 E:\Codigo\TareaAPI\system\Validation\Validation.php(312): CodeIgniter\Validation\StrictRules\Rules->is_unique('2021-01-09', 'fechaindicador', Array, NULL, 'fechaindicador')
+#7 E:\Codigo\TareaAPI\system\Validation\Validation.php(170): CodeIgniter\Validation\Validation->processRules('fechaindicador', 'fechaindicador', '2021-01-09', Array, Array)
+#8 E:\Codigo\TareaAPI\system\BaseModel.php(1453): CodeIgniter\Validation\Validation->run(Array, NULL, NULL)
+#9 E:\Codigo\TareaAPI\system\BaseModel.php(745): CodeIgniter\BaseModel->validate(Array)
+#10 E:\Codigo\TareaAPI\system\Model.php(729): CodeIgniter\BaseModel->insert(Array, true)
+#11 E:\Codigo\TareaAPI\app\Controllers\BaseController.php(110): CodeIgniter\Model->insert(Array)
+#12 E:\Codigo\TareaAPI\system\CodeIgniter.php(907): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#13 E:\Codigo\TareaAPI\system\CodeIgniter.php(490): CodeIgniter\CodeIgniter->createController()
+#14 E:\Codigo\TareaAPI\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 E:\Codigo\TareaAPI\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#16 E:\Codigo\TareaAPI\system\Commands\Server\rewrite.php(47): require_once('E:\\Codigo\\Tarea...')
+#17 {main}
+CRITICAL - 2023-02-03 20:51:34 --> pg_query(): Query failed: ERROR:  la sintaxis de entrada no es válida para tipo numeric: «$id»
+LINE 4: AND &quot;indicadorfinancieros&quot;.&quot;id&quot; != '$id'
+                                           ^
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1602): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM "indicadorfinancieros"
+WHERE "fechaindicador" = :fechaindicador:
+AND "indicadorfinancieros"."id" != :indicadorfinancieros.id:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Validation\StrictRules\Rules.php(206): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\Validation\Validation.php(312): CodeIgniter\Validation\StrictRules\Rules->is_unique('2021-01-09', 'fechaindicador', [...], null, 'fechaindicador')
+ 4 SYSTEMPATH\Validation\Validation.php(170): CodeIgniter\Validation\Validation->processRules('fechaindicador', 'fechaindicador', '2021-01-09', [...], [...])
+ 5 SYSTEMPATH\BaseModel.php(1453): CodeIgniter\Validation\Validation->run([...], null, null)
+ 6 SYSTEMPATH\BaseModel.php(745): CodeIgniter\BaseModel->validate([...])
+ 7 SYSTEMPATH\Model.php(729): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\BaseController.php(110): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(907): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(490): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-03 21:37:51 --> Call to undefined function App\Controllers\getVar()
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 3 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-03 21:38:40 --> Undefined property: App\Controllers\IndicadorFinancieroController::$output
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 21.
+ 1 APPPATH\Controllers\IndicadorFinancieroController.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\IndicadorFinancieroController::$output', 'APPPATH\\Controllers\\IndicadorFinancieroController.php', 21)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->create()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-03 21:47:30 --> Call to undefined method App\Controllers\IndicadorFinancieroController::failValidationError()
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 3 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-03 21:48:11 --> Call to undefined method App\Controllers\IndicadorFinancieroController::failValidationError()
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\IndicadorFinancieroController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\IndicadorFinancieroController))
+ 3 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
+CRITICAL - 2023-02-03 21:48:30 --> syntax error, unexpected token "use"
+in APPPATH\Controllers\IndicadorFinancieroController.php on line 18.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(289): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Controllers\\IndicadorFinancieroController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(267): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\IndicadorFinancieroController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\IndicadorFinancieroController')
+ 4 SYSTEMPATH\CodeIgniter.php(892): class_exists('\\App\\Controllers\\IndicadorFinancieroController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(486): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('FCPATH\\index.php')
