@@ -20,6 +20,46 @@ class IndicadorFinancieroController extends BaseController
         $data['data'] = $modelo->orderBy('fechaindicador','DESC')->findAll();  
         return $this->respond($data, 200);
     } 
+    public function getGraph()
+    {   
+        helper(['form','url']);
+        $modelo = new IndicadorFinancieroModel();
+        $fechaInicio=$this->request->getVar('fechaInicio');
+        $fechaFin=$this->request->getVar('fechaFin');
+        $x = array();
+        $y = array();
+        if(empty($fechaInicio)||empty($fechaFin)) {
+            $filtro =$modelo->select('fechaindicador,valorindicador')->orderBy('fechaindicador','DESC')->findAll();
+            foreach ($filtro as $row) {
+                array_push($x, $row['fechaindicador']);
+                array_push($y, $row['valorindicador']);
+            }
+            $data=[
+                "x"=>$x,
+                "y"=>$y
+            ];
+            return $this->respond($data, 200);
+        }     
+        if($fechaInicio> $fechaFin) {            
+            $data=[
+                "x"=>[],
+                "y"=>[]
+            ];
+            return $this->respond($data, 400);
+        }    
+        
+        $filtro =$modelo->select('fechaindicador,valorindicador')->where('fechaindicador >=',$fechaInicio)->where('fechaindicador <=',$fechaFin)->orderBy('fechaindicador','DESC')->findAll();
+        foreach ($filtro as $row) {
+            array_push($x, $row['fechaindicador']);
+            array_push($y, $row['valorindicador']);
+        }
+        $data=[
+            "x"=>$x,
+            "y"=>$y
+        ];
+        return $this->respond($data, 200);
+        
+    } 
 
     public function create()
     {   
@@ -28,7 +68,7 @@ class IndicadorFinancieroController extends BaseController
         $modelo = new IndicadorFinancieroModel();
         $existeFecha =$modelo->where('fechaindicador',$this->request->getVar('addDate'))->countAllResults();
         if ($existeFecha > 0) {           
-            echo json_encode (array("status" => false));
+            return $this->fail(null, 402,"fecha ya esta registrada");
         }
 
         $maxIdRow = $modelo->orderBy('id','DESC')->first();

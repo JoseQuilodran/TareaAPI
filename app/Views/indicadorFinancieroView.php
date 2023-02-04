@@ -1,54 +1,60 @@
-<?php 
-    //Transformacion datos indicador a puntos grafico con fechaindicador como js timestamp
-    $dataPoints = array();
-
-    foreach ($indicadores_uf as $row) {
-        
-        array_push($dataPoints, array("x" => strtotime($row['fechaindicador'])*1000, "y" => $row['valorindicador']));
-    }
-?>
-<!-- Inicio script de Grafico -->
+<!-- Inicio script de Grafico ChartJs -->
 <script>
-    window.onload = function () {    
-    CanvasJS.addCultureInfo("es", 
-    {                     
-        shortMonths: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Agto", "Sept", "Oct", "Nov", "Dic"]
-        
-    });
- 
-    var chart = new CanvasJS.Chart("chartContainer", {
-        culture:  "es",
-        animationEnabled: true,
-        //theme: "light2",
-        title:{
-            text: "Precio de la Unidad De Fomento (UF)"
-        },
-        axisX:{
-            title: "Fecha",
-            valueFormatString: "DD MMM YYYY",
-            crosshair: {
-                enabled: true,
-                snapToDataPoint: true
-            }
-        },
-        axisY:{
-            title: "Pesos Chilenos (CLP)",
-            includeZero: true,
-            crosshair: {
-                enabled: true,
-                snapToDataPoint: true
-            }
-        },
-        toolTip:{
-            enabled: false
-        },
-        data: [{
-            type: "area",
-            xValueType: "dateTime",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+    var chart;
+    window.onload = function () {       
+    chart = new Chart("chartContainer", {
+        type: 'line',
+        data: {
+        datasets: [{
+        data: []
         }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                display: false,
+            },
+            title: {
+                display: true,
+                font: {
+                    size: 24,                    
+                },                
+                text: 'Precio Unidad de Fomento (UF) en CLP'
+            }
+        },
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    tooltipFormat:'MM/dd/yyyy', // <- HERE
+                    displayFormats: {
+                        quarter: 'MM-YYYY',
+                        day: 'd-MM-yyyy',
+                        month:'MM-yyyy',
+                        hour:'d-MM-yyyy'
+                    }
+                }
+            }
+        }
+        }
     });
-    chart.render();    
+    //conseguir todos los datos al cargar la pagina y mostrarlos en el grafico
+    var form_action = $("#filtrarFecha").attr("action");
+    $.ajax({
+        data: $('#filtrarFecha').serialize(),
+        url: form_action,
+        type: "POST",
+        dataType: 'json',
+        success: function (res) {                           
+            chart.data.datasets[0].data = res['y'];
+            chart.data.labels =res['x'];
+            chart.update();
+            toastr.success('Datos grafico cargados');
+        },
+        error: function (data) {
+            toastr.error('Ocurrio un problema,intente nuevamente');
+        }
+    });       
     }
 </script>
 <!-- Fin script de Grafico -->
@@ -74,8 +80,24 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-center col-5 ">
-            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <div class="d-flex  col-5 ">
+            <div>
+                <form id="filtrarFecha" name ="filtrarFecha" action="<?php echo site_url('/getgraph'); ?>" method="post">
+                    <div>                
+                        <div class="mb-3 form-group">
+                            <label for="fechInicio" class="col-form-label">Desde:</label>
+                            <input type="date"  required class="form-control" id="fechaInicio" name="fechaInicio">
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="fechaFin" class="col-form-label">Hasta:</label>
+                            <input type="date"  required class="form-control" id="fechaFin" name="fechaFin">
+                        </div>                                
+                        <button type="submit" class="btn btn-primary">Recargar Grafico</button>
+                    </div>          
+                </form>
+            </div>
+            
+            <canvas id="chartContainer" style="width:100%;max-width:700px"></canvas>
         </div>
     </div>       
     </div>
@@ -263,6 +285,11 @@
                             $('#addModal').modal('hide');                            
                             toastr.success('Indicador registrado correctamente');
                         },
+                        statusCode: {
+                            402: function (response) {
+                                toastr.error('Indicador con esta fecha ya existe,intente nuevamente');
+                            }
+                        },
                         error: function (data) {
                             toastr.error('Ocurrio un problema,intente nuevamente');
                         }
@@ -326,8 +353,36 @@
             });
         });    
     </script>
+    <!-- Inicio script de validacion y solicitud AJAX fechas grafico -->
+    <script>
+        $(document).ready( function () {
+            $("#filtrarFecha").validate({                
+                messages:{
+
+                },
+                submitHandler: function (form) {
+                    var form_action = $("#filtrarFecha").attr("action");
+                    $.ajax({
+                        data: $('#filtrarFecha').serialize(),
+                        url: form_action,
+                        type: "POST",
+                        dataType: 'json',
+                        success: function (res) {     
+                            chart.data.datasets[0].data = res['y'];
+                            chart.data.labels =res['x'];
+                            chart.update();                   
+                            toastr.success('Datos grafico actualizados correctamente');
+                        },
+                        error: function (data) {
+                            toastr.error('Ocurrio un problema,intente nuevamente');
+                        }
+                    });
+                }
+            });
+        });    
+    </script>
     <!-- Fin scripts de validacion y solicitudes modal AJAX-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
 </body>
 </html>
