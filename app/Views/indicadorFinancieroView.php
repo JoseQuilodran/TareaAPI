@@ -209,7 +209,7 @@
             <p><strong>Mini proyecto para mostrar consumo de API y grafico de Unidad de Fomento en codeigniter 4</strong> </p>
             <h3 id="acerca-de">Acerca de</h3>
             <ul>
-            <li>Se utiliza el Framework Codeigniter 4.</li>
+            <li>Se utiliza el Framework Codeigniter 4. para montar rapidamente, utilizar "php spark serve"</li>
             <li>PostgreSql 15, crear base de datos en este caso &#39;TestAPIDB&#39;, ingresar datos en archivo .env (renombrar archivo env).</li>
             <li>El sistema utiliza crud, por lo que el certificado cacert.pem debe estar configurado correctamente en php.ini para solicitudes seguras.</li>
             <li>El sistema utiliza la api de <a href="https://postulaciones.solutoria.cl/index.html">https://postulaciones.solutoria.cl/index.html</a> , se asume que el Schema de esta pagina es el correcto.</li>
