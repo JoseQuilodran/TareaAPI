@@ -9,7 +9,6 @@
     <script src=" https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js "></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" type="text/css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script type="text/javascript" src=" https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css " rel="stylesheet">
     <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.min.js "></script>   
@@ -26,11 +25,11 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><h2 class="px-2 text-white ">Tarea API UF</h2></li>       
         </ul>
-
+        
         
 
         <div class="text-end">
-          <button type="button" class="btn btn-warning">Acerca de</button>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#aboutModal">Acerca de</button>
         </div>
       </div>
     </div>
