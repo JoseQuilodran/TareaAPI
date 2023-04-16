@@ -53,7 +53,7 @@
             fInicio.val(res['x'][res['x'].length -1]);
             fFin.val(res['x'][0]);
             $('#fechaLabel').hide()
-            toastr.success('Datos grafico cargados');
+            toastr.info('Datos grafico cargados');
         },
         error: function (data) {
             toastr.error('Ocurrio un problema,intente nuevamente');
@@ -260,7 +260,7 @@
                 chart.data.datasets[0].data = res['y'];
                 chart.data.labels =res['x'];
                 chart.update();                   
-                toastr.success('Datos grafico actualizados correctamente');
+                toastr.info('Datos grafico actualizados correctamente');
             },
             error: function (data) {
                 toastr.error('Ocurrio un problema,intente nuevamente');
